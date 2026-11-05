@@ -1,0 +1,11 @@
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.toml text eol=lf
+*.sh text eol=lf
+*.yml text eol=lf
+data/source/*.jsonl -text
+data/redhat8_4000.jsonl -text
+data/redhat8_4000.manifest.json -text
+vendor/*.json -text
+*.gz -text

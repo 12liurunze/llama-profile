@@ -1,0 +1,13 @@
+.runtime/
+.venv/
+results/
+__pycache__/
+*.pyc
+*.pyo
+data/prepared*.json
+data/steady*.json
+*.log
+*.tar
+*_results.tar.gz
+.pytest_cache/
+.env

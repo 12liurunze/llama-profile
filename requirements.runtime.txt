@@ -1,0 +1,34 @@
+# Core compatibility constraints for an EXISTING matching Linux CUDA environment.
+# This is not a complete from-scratch installer or a transitive dependency lock.
+# Doctor checks these versions; the installer never upgrades the GPU environment.
+# Full observed dependency provenance is in vendor/requirements.observed.txt.
+torch==2.13.0
+torchvision==0.28.0
+triton==3.7.1
+transformers==5.12.1
+tokenizers==0.22.2
+safetensors==0.8.0
+numpy==2.3.5
+flashinfer-python==0.6.18
+sglang-kernel==0.4.7
+apache-tvm-ffi==0.1.11
+cuda-python==13.4.1
+torch-memory-saver==0.0.10
+ninja==1.13.2
+einops==0.8.2
+packaging==26.3
+psutil==7.2.2
+pyzmq==27.2.0
+uvloop==0.23.0
+msgspec==0.22.0
+pydantic==2.13.5
+setproctitle==1.3.8
+fastapi==0.142.2
+aiohttp==3.14.3
+requests==2.34.2
+orjson==3.12.0
+pybase64==1.5.0
+ipython==9.17.1
+tqdm==4.70.1
+huggingface-hub==1.33.0
+pillow==12.3.0

@@ -1,0 +1,14 @@
+{
+  "snapshot": "Pre-change single-GPU-tested original Adaptive2 optimized runtime",
+  "experiment": "redhat8_llama_20261028",
+  "file_count": 4886,
+  "python_files": 3812,
+  "archive_sha256": "55d9c884269a1e5fb948931e34eedbc16132a0334d03eb02894dc1e84657eb2d",
+  "archive_bytes": 13150097,
+  "upstream": "https://github.com/sgl-project/sglang",
+  "license": "Apache-2.0; see LICENSE.sglang",
+  "upstream_commit": null,
+  "version_note": "The source checkout has no .git metadata and reports0.0.0.dev0; a commit/tag cannot be inferred from its directory name.",
+  "secret_pattern_scan_passed": true,
+  "multigpu_gpu_validation": false
+}

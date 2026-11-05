@@ -1,0 +1,11 @@
+{
+  "sglang": "0.0.0.dev0",
+  "torch": "2.13.0",
+  "triton": "3.7.1",
+  "transformers": "5.12.1",
+  "flashinfer-python": "0.6.18",
+  "sgl-kernel": null,
+  "safetensors": "0.8.0",
+  "numpy": "2.3.5",
+  "sglang-kernel": "0.4.7"
+}

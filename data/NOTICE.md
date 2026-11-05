@@ -1,0 +1,14 @@
+# Data attribution and license record
+
+The source dataset is **RedHatAI/speculator_benchmarks**, revision `2ae86affa2cb97a972b7fc681dd51c04fbff083e`. The [official card at this revision](https://huggingface.co/datasets/RedHatAI/speculator_benchmarks/blob/2ae86affa2cb97a972b7fc681dd51c04fbff083e/README.md) labels the dataset Apache-2.0 and explicitly attributes its eight listed files as follows (checked 2026-11-05):
+
+- **HumanEval.jsonl**: [OpenAI HumanEval](https://github.com/openai/human-eval), MIT license, copyright OpenAI. The license notice is preserved in [licenses/HumanEval-MIT.txt](licenses/HumanEval-MIT.txt); the [upstream notice](https://raw.githubusercontent.com/openai/human-eval/master/LICENSE) is the source.
+- **math_reasoning, qa, question, rag, summarization, translation, writing**: [Heming Xia and collaborators' Spec-Bench](https://github.com/hemingkx/Spec-Bench), Apache License 2.0 as stated by the RedHatAI card and the upstream repository. A copy is preserved in [licenses/Spec-Bench-Apache-2.0.txt](licenses/Spec-Bench-Apache-2.0.txt), from the [upstream license](https://raw.githubusercontent.com/hemingkx/Spec-Bench/main/LICENSE).
+
+The license copies were extracted from the complete text displayed by the web reader; whitespace/line endings may differ from the raw hosted license file. Their terms and the OpenAI copyright notice are retained. These third-party data licenses and notices are distinct from the profiler code license. The upstream card's declarations are reported as provenance; this package does not assert a new exclusive copyright over the prompts or relicense underlying third-party text.
+
+Changes in this package: the eight original JSONL source files are byte-preserved; the derived `redhat8_4000.jsonl` repeats and interleaves their unchanged prompt strings and adds request IDs, provenance hashes and copy indices. It omits answers/reference fields from model-facing requests. No source prompt text was edited. The source hashes are pinned in the builder and manifest.
+
+Source files were recovered from the existing pinned benchmark download and checked against its SHA-256 inventory. The original snapshot used a Hugging Face mirror; provenance links in this package point to the official Hugging Face revision. The package contains public benchmark data and attribution only, without model weights, model tokenizer assets, private experiment logs, connection configuration, or credentials.
+
+Spec-Bench reference: Heming Xia, Zhe Yang, Qingxiu Dong, Peiyi Wang, Yongqi Li, Tao Ge, Tianyu Liu, Wenjie Li, Zhifang Sui, *Unlocking Efficiency in Large Language Model Inference: A Comprehensive Survey of Speculative Decoding*, Findings of ACL 2024. Use the [upstream repository citation](https://github.com/hemingkx/Spec-Bench#citation) as the authoritative bibliography.

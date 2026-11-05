@@ -1,0 +1,481 @@
+{
+  "added_repetitions_of_source_records": 3276,
+  "builder": {
+    "dependencies": "Python standard library",
+    "offline": true,
+    "path": "scripts/build_dataset.py",
+    "sha256": "ac3cb1af00c11c30ee9b00e364acb367f033a52a07c838830e41ecf8f6d49738"
+  },
+  "copy_index_policy": "Zero-based: floor(subset_request_index / source row count); repetition_index is its explicit alias",
+  "count_interpretation": "4000 requests from 724 source records and 644 distinct prompt strings; not 4000 independent tasks",
+  "cross_subset_prompt_overlap": [
+    {
+      "byte_identical_source_files": true,
+      "distinct_shared_prompts": 80,
+      "left": "question",
+      "right": "writing"
+    }
+  ],
+  "dataset_name": "redhat8_4000",
+  "distinct_prompt_strings": 644,
+  "output": {
+    "bytes": 5680778,
+    "encoding": "UTF-8 without BOM; sorted-key compact JSON; LF line terminators",
+    "filename": "redhat8_4000.jsonl",
+    "sha256": "b79ae34f47010c0eb1d8929f785011a9c278279c90eb181010d75e598093cb4c"
+  },
+  "prompt_characters": {
+    "count": 4000,
+    "max": 6847,
+    "mean": 994.387,
+    "min": 34,
+    "over_2048": 888,
+    "over_4096": 135,
+    "over_8192": 0,
+    "p50": 242,
+    "p95": 3425,
+    "p99": 6244,
+    "quantile_method": "nearest_rank",
+    "unit": "Unicode code points, not tokenizer tokens"
+  },
+  "prompt_frequency_histogram": {
+    "3": 156,
+    "4": 8,
+    "6": 300,
+    "7": 100,
+    "12": 60,
+    "14": 20
+  },
+  "prompt_policy": {
+    "content_unchanged": true,
+    "context_policy": "Runtime must tokenize with its actual target tokenizer, report lengths, and reject insufficient context rather than silently truncate",
+    "length_filtering": false,
+    "padding": false,
+    "runtime_template": "target_tokenizer.apply_chat_template([{'role':'user','content':prompt}], tokenize=True, add_generation_prompt=True)",
+    "system_message": null,
+    "tokenized": false,
+    "truncation": false
+  },
+  "request_count": 4000,
+  "requests_beyond_first_distinct_prompt": 3356,
+  "requests_per_subset": 500,
+  "schema_version": 1,
+  "selection_policy": "For slot 0..499, visit the eight subsets in subset_order; use source row slot modulo source row count",
+  "source_card_url": "https://huggingface.co/datasets/RedHatAI/speculator_benchmarks/blob/2ae86affa2cb97a972b7fc681dd51c04fbff083e/README.md",
+  "source_files": {
+    "HumanEval.jsonl": {
+      "bytes": 214438,
+      "license_as_declared_by_upstream_card": "MIT",
+      "records": 164,
+      "sha256": "1d49078ba3e2b196b9344535bef34a43021f038fad9561d6ee7c53450609a6a2",
+      "source_prompt_characters": {
+        "count": 164,
+        "max": 1360,
+        "mean": 450.5975609756098,
+        "min": 115,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 396,
+        "p95": 926,
+        "p99": 1265,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "url": "https://huggingface.co/datasets/RedHatAI/speculator_benchmarks/resolve/2ae86affa2cb97a972b7fc681dd51c04fbff083e/HumanEval.jsonl"
+    },
+    "math_reasoning.jsonl": {
+      "bytes": 48051,
+      "license_as_declared_by_upstream_card": "Apache-2.0",
+      "records": 80,
+      "sha256": "b73b686f1c585eef7db1306564688da8668ef633ff8e58d55949aac04db8c9b0",
+      "source_prompt_characters": {
+        "count": 80,
+        "max": 597,
+        "mean": 232.875,
+        "min": 84,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 211,
+        "p95": 458,
+        "p99": 597,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "url": "https://huggingface.co/datasets/RedHatAI/speculator_benchmarks/resolve/2ae86affa2cb97a972b7fc681dd51c04fbff083e/math_reasoning.jsonl"
+    },
+    "qa.jsonl": {
+      "bytes": 8127,
+      "license_as_declared_by_upstream_card": "Apache-2.0",
+      "records": 80,
+      "sha256": "17c7c2fb9f36abd16e3e2a8ab5487ae678e9762d96cb9736eec442cbaba9f506",
+      "source_prompt_characters": {
+        "count": 80,
+        "max": 82,
+        "mean": 48.5875,
+        "min": 34,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 46,
+        "p95": 68,
+        "p99": 82,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "url": "https://huggingface.co/datasets/RedHatAI/speculator_benchmarks/resolve/2ae86affa2cb97a972b7fc681dd51c04fbff083e/qa.jsonl"
+    },
+    "question.jsonl": {
+      "bytes": 40017,
+      "license_as_declared_by_upstream_card": "Apache-2.0",
+      "records": 80,
+      "sha256": "9db8ea4678e058c26f21a9cc0bf79f95a9750e370cafb4f90a8e3b058c2a2aa4",
+      "source_prompt_characters": {
+        "count": 80,
+        "max": 1642,
+        "mean": 299.5375,
+        "min": 38,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 183,
+        "p95": 1028,
+        "p99": 1642,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "url": "https://huggingface.co/datasets/RedHatAI/speculator_benchmarks/resolve/2ae86affa2cb97a972b7fc681dd51c04fbff083e/question.jsonl"
+    },
+    "rag.jsonl": {
+      "bytes": 258268,
+      "license_as_declared_by_upstream_card": "Apache-2.0",
+      "records": 80,
+      "sha256": "d1644a209c444e1dd7ff65bf3ce9e8a4daa5d609ac93cbf4f6bebc10400d8d91",
+      "source_prompt_characters": {
+        "count": 80,
+        "max": 3495,
+        "mean": 3101.85,
+        "min": 2661,
+        "over_2048": 80,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 3072,
+        "p95": 3381,
+        "p99": 3495,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "url": "https://huggingface.co/datasets/RedHatAI/speculator_benchmarks/resolve/2ae86affa2cb97a972b7fc681dd51c04fbff083e/rag.jsonl"
+    },
+    "summarization.jsonl": {
+      "bytes": 302603,
+      "license_as_declared_by_upstream_card": "Apache-2.0",
+      "records": 80,
+      "sha256": "e7d2945062f77aae25553f7f7531deefc358f5d0b87b9c623e6ba8ba555ff1be",
+      "source_prompt_characters": {
+        "count": 80,
+        "max": 6847,
+        "mean": 3369.1625,
+        "min": 692,
+        "over_2048": 62,
+        "over_4096": 22,
+        "over_8192": 0,
+        "p50": 2959,
+        "p95": 6288,
+        "p99": 6847,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "url": "https://huggingface.co/datasets/RedHatAI/speculator_benchmarks/resolve/2ae86affa2cb97a972b7fc681dd51c04fbff083e/summarization.jsonl"
+    },
+    "translation.jsonl": {
+      "bytes": 28915,
+      "license_as_declared_by_upstream_card": "Apache-2.0",
+      "records": 80,
+      "sha256": "bd27352726c318b72a263158672b0ff0c15feb459ae735f723b27623a0ba595d",
+      "source_prompt_characters": {
+        "count": 80,
+        "max": 427,
+        "mean": 160.175,
+        "min": 61,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 156,
+        "p95": 283,
+        "p99": 427,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "url": "https://huggingface.co/datasets/RedHatAI/speculator_benchmarks/resolve/2ae86affa2cb97a972b7fc681dd51c04fbff083e/translation.jsonl"
+    },
+    "writing.jsonl": {
+      "bytes": 40017,
+      "license_as_declared_by_upstream_card": "Apache-2.0",
+      "records": 80,
+      "sha256": "9db8ea4678e058c26f21a9cc0bf79f95a9750e370cafb4f90a8e3b058c2a2aa4",
+      "source_prompt_characters": {
+        "count": 80,
+        "max": 1642,
+        "mean": 299.5375,
+        "min": 38,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 183,
+        "p95": 1028,
+        "p99": 1642,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "url": "https://huggingface.co/datasets/RedHatAI/speculator_benchmarks/resolve/2ae86affa2cb97a972b7fc681dd51c04fbff083e/writing.jsonl"
+    }
+  },
+  "source_record_sha256_policy": "SHA256 of UTF-8 sorted-key compact JSON plus LF, not source file line bytes",
+  "source_records_used": 724,
+  "source_repository": "RedHatAI/speculator_benchmarks",
+  "source_revision": "2ae86affa2cb97a972b7fc681dd51c04fbff083e",
+  "subset_order": [
+    "HumanEval",
+    "math_reasoning",
+    "qa",
+    "question",
+    "rag",
+    "summarization",
+    "translation",
+    "writing"
+  ],
+  "subsets": {
+    "HumanEval": {
+      "added_repetitions": 336,
+      "copies_per_source_record_histogram": {
+        "3": 156,
+        "4": 8
+      },
+      "distinct_prompt_strings": 164,
+      "request_prompt_characters": {
+        "count": 500,
+        "max": 1360,
+        "mean": 449.62,
+        "min": 115,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 396,
+        "p95": 926,
+        "p99": 1265,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "requests": 500,
+      "source_categories": {
+        "None": 500
+      },
+      "source_records_used": 164
+    },
+    "math_reasoning": {
+      "added_repetitions": 420,
+      "copies_per_source_record_histogram": {
+        "6": 60,
+        "7": 20
+      },
+      "distinct_prompt_strings": 80,
+      "request_prompt_characters": {
+        "count": 500,
+        "max": 597,
+        "mean": 232.226,
+        "min": 84,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 211,
+        "p95": 458,
+        "p99": 597,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "requests": 500,
+      "source_categories": {
+        "math_reasoning": 500
+      },
+      "source_records_used": 80
+    },
+    "qa": {
+      "added_repetitions": 420,
+      "copies_per_source_record_histogram": {
+        "6": 60,
+        "7": 20
+      },
+      "distinct_prompt_strings": 80,
+      "request_prompt_characters": {
+        "count": 500,
+        "max": 82,
+        "mean": 48.518,
+        "min": 34,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 46,
+        "p95": 68,
+        "p99": 82,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "requests": 500,
+      "source_categories": {
+        "qa": 500
+      },
+      "source_records_used": 80
+    },
+    "question": {
+      "added_repetitions": 420,
+      "copies_per_source_record_histogram": {
+        "6": 60,
+        "7": 20
+      },
+      "distinct_prompt_strings": 80,
+      "request_prompt_characters": {
+        "count": 500,
+        "max": 1642,
+        "mean": 297.92,
+        "min": 38,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 186,
+        "p95": 1028,
+        "p99": 1642,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "requests": 500,
+      "source_categories": {
+        "coding": 60,
+        "extraction": 60,
+        "humanities": 60,
+        "math": 60,
+        "reasoning": 60,
+        "roleplay": 70,
+        "stem": 60,
+        "writing": 70
+      },
+      "source_records_used": 80
+    },
+    "rag": {
+      "added_repetitions": 420,
+      "copies_per_source_record_histogram": {
+        "6": 60,
+        "7": 20
+      },
+      "distinct_prompt_strings": 80,
+      "request_prompt_characters": {
+        "count": 500,
+        "max": 3495,
+        "mean": 3103.282,
+        "min": 2661,
+        "over_2048": 500,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 3083,
+        "p95": 3392,
+        "p99": 3495,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "requests": 500,
+      "source_categories": {
+        "rag": 500
+      },
+      "source_records_used": 80
+    },
+    "summarization": {
+      "added_repetitions": 420,
+      "copies_per_source_record_histogram": {
+        "6": 60,
+        "7": 20
+      },
+      "distinct_prompt_strings": 80,
+      "request_prompt_characters": {
+        "count": 500,
+        "max": 6847,
+        "mean": 3365.514,
+        "min": 692,
+        "over_2048": 388,
+        "over_4096": 135,
+        "over_8192": 0,
+        "p50": 3022,
+        "p95": 6288,
+        "p99": 6847,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "requests": 500,
+      "source_categories": {
+        "summarization": 500
+      },
+      "source_records_used": 80
+    },
+    "translation": {
+      "added_repetitions": 420,
+      "copies_per_source_record_histogram": {
+        "6": 60,
+        "7": 20
+      },
+      "distinct_prompt_strings": 80,
+      "request_prompt_characters": {
+        "count": 500,
+        "max": 427,
+        "mean": 160.096,
+        "min": 61,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 156,
+        "p95": 283,
+        "p99": 427,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "requests": 500,
+      "source_categories": {
+        "translation": 500
+      },
+      "source_records_used": 80
+    },
+    "writing": {
+      "added_repetitions": 420,
+      "copies_per_source_record_histogram": {
+        "6": 60,
+        "7": 20
+      },
+      "distinct_prompt_strings": 80,
+      "request_prompt_characters": {
+        "count": 500,
+        "max": 1642,
+        "mean": 297.92,
+        "min": 38,
+        "over_2048": 0,
+        "over_4096": 0,
+        "over_8192": 0,
+        "p50": 186,
+        "p95": 1028,
+        "p99": 1642,
+        "quantile_method": "nearest_rank",
+        "unit": "Unicode code points, not tokenizer tokens"
+      },
+      "requests": 500,
+      "source_categories": {
+        "coding": 60,
+        "extraction": 60,
+        "humanities": 60,
+        "math": 60,
+        "reasoning": 60,
+        "roleplay": 70,
+        "stem": 60,
+        "writing": 70
+      },
+      "source_records_used": 80
+    }
+  }
+}
