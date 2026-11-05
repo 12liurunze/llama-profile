@@ -105,7 +105,8 @@ def instrument(src, dst):
             '        _steady.note(draft_graph=bool(can_run_decode_cuda_graph),\n'
             '                     draft_frontier_width=self.topk,\n'
             '                     draft_forward_calls=self.speculative_num_steps - 1,\n'
-            '                     draft_input_rows=int(forward_batch.input_ids.numel()))\n'
+            '                     draft_input_rows=int(draft_input.positions.numel()),\n'
+            '                     draft_input_rows_source="prepared_frontier_positions")\n'
             + needle, 1)
         needle = ('            if can_run_decode_cuda_graph:\n'
                   '                draft_logits_output = ')

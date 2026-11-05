@@ -179,7 +179,8 @@ def _window(paired_steps, expected_bs):
             'frontier_widths': dict(Counter(str(row.get('draft_frontier_width')) for row in zero)),
             'configured_inner_forwards': dict(Counter(str(row.get('draft_forward_calls')) for row in zero)),
             'entry_input_rows': dict(Counter(str(row.get('draft_input_rows')) for row in zero)),
-            'entry_rows_scope': 'Draft-entry input_ids metadata, not an independently traced internal GEMM size.'},
+            'entry_rows_sources': dict(Counter(str(row.get('draft_input_rows_source')) for row in zero)),
+            'entry_rows_scope': 'Prepared draft frontier positions count (request count times frontier width); not input_ids presence, graph padding, or an independently traced GEMM size.'},
         'cpu_boundaries_reference_only': {
             'first_worker_start_unix': zero[0].get('start_unix'),
             'first_commit_unix': commit_times[0] if commit_times else None,

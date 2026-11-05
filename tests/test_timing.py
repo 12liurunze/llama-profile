@@ -1,10 +1,12 @@
 """CPU-only contract tests: TP accounting, fail-closed windows and hooks."""
+import ast
 import importlib.util
 import json
 import os
 from pathlib import Path
 import struct
 import sys
+import tarfile
 import tempfile
 import types
 import unittest
@@ -28,7 +30,8 @@ def fixture_row(rank, step, bs=128):
     return dict(rank=rank, world_size=8, run_id='test-run', step=step,
                 phase='puredecode', bs=bs, batch_fingerprint='same-ordered-requests',
                 diagnostic_only=False, target_graph=True, draft_graph=True, draft_extend_graph=True,
-                draft_forward_calls=6, draft_frontier_width=2, draft_input_rows=bs,
+                draft_forward_calls=6, draft_frontier_width=2, draft_input_rows=2 * bs,
+                draft_input_rows_source='prepared_frontier_positions',
                 stages={k: {'gpu_ms': value, 'calls': 1} for k, value in ms.items()},
                 gpu_start_ms=start, gpu_end_ms=start + 46,
                 commit_observed=True, committed_tokens=3 * bs, accepted_tokens=3 * bs,
@@ -67,6 +70,8 @@ class MultiRankAnalysisTests(unittest.TestCase):
                 self.assertAlmostEqual(primary['rank0_continuous_gpu_decode_tokens_per_second'], 12 * bs * 3 * 1000 / 574)
                 self.assertEqual(primary['sum_of_slowest_rank_step_durations_ms'], 12 * 46)
                 self.assertEqual(primary['max_rank_window_duration_ms'], 11 * 55 + 46)
+                self.assertEqual(primary['draft_execution']['entry_input_rows'], {str(2 * bs): 12})
+                self.assertEqual(primary['draft_execution']['entry_rows_sources'], {'prepared_frontier_positions': 12})
                 maxima = primary['per_stage_rank_maxima']
                 self.assertEqual(maxima['draft']['mean_rank_max_ms_per_step'], 20)
                 self.assertEqual(maxima['verify_total']['mean_rank_max_ms_per_step'], 30)
@@ -264,6 +269,56 @@ class HookTests(unittest.TestCase):
 
 
 class InstrumentTests(unittest.TestCase):
+    def test_graph_draft_metadata_accepts_absent_input_ids_without_device_read(self):
+        # The real prepare_for_draft sets positions before input_ids is created
+        # inside draft_forward. Graph dispatch and off-gate warmup may therefore
+        # reach the injected note with input_ids=None.
+        paths = ('srt/speculative/eagle_worker_v2.py',
+                 'srt/speculative/eagle_worker_common.py',
+                 'kernels/ops/kvcache/cache_move.py',
+                 'srt/managers/scheduler_components/batch_result_processor.py')
+        with tempfile.TemporaryDirectory() as directory:
+            source, target = Path(directory) / 'source', Path(directory) / 'target'
+            with tarfile.open(ROOT / 'vendor/original_runtime.tar.gz') as archive:
+                for relative in paths:
+                    path = source / relative
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(archive.extractfile('sglang/' + relative).read())
+            manifest = instrument(source, target)
+            self.assertTrue(manifest['ast_equivalent'])
+            self.assertEqual(len(manifest['files']), 4)
+            tree = ast.parse((target / paths[0]).read_text(encoding='utf-8'))
+            notes = [node for node in ast.walk(tree) if isinstance(node, ast.Call)
+                     and isinstance(node.func, ast.Attribute) and node.func.attr == 'note'
+                     and any(key.arg == 'draft_input_rows' for key in node.keywords)]
+            self.assertEqual(len(notes), 1)
+            evaluate_note = compile(ast.Expression(body=notes[0]), '<instrumented draft note>', 'eval')
+
+            class Positions:
+                def __init__(self, size):
+                    self.size = size
+                def numel(self):
+                    return self.size  # Tensor metadata; no GPU data access.
+                def cpu(self):
+                    raise AssertionError('Diagnostics must not add a device-to-host copy')
+                def item(self):
+                    raise AssertionError('Diagnostics must not synchronize for a scalar')
+
+            for width in (1, 2):
+                for bs in (0, 32, 127, 128, 256, 512):
+                    with self.subTest(width=width, bs=bs):
+                        values = eval(evaluate_note, {
+                            '_steady': types.SimpleNamespace(note=lambda **values: values),
+                            'can_run_decode_cuda_graph': True,
+                            'self': types.SimpleNamespace(topk=width, speculative_num_steps=7),
+                            'draft_input': types.SimpleNamespace(positions=Positions(bs * width)),
+                            # A padded Graph512 must not supply the observed row count.
+                            'forward_batch': types.SimpleNamespace(input_ids=None, batch_size=512),
+                        })
+                        self.assertEqual(values['draft_input_rows'], bs * width)
+                        self.assertEqual(values['draft_input_rows_source'], 'prepared_frontier_positions')
+                        self.assertTrue(values['draft_graph'])
+
     def test_original_source_is_unchanged_and_hooks_self_contained(self):
         worker = '''class Worker:
     def forward_batch_generation(self, batch):
